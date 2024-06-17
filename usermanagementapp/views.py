@@ -3,8 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import User, Product, Order, OrderItem, Cart, CartItem
 from .serializers import UserSerializer, ProductSerializer, OrderSerializer, OrderItemSerializer, CartSerializer, CartItemSerializer
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+
 
 class RegisterView(APIView):
     def post(self, request):
@@ -15,6 +14,9 @@ class RegisterView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class LoginView(APIView):
+    
+    
+    
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
@@ -25,8 +27,7 @@ class LoginView(APIView):
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 class UserProfileView(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    
 
     def get(self, request):
         user = request.user
@@ -74,8 +75,7 @@ class ProductDetailView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class OrderCreateView(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    
 
     def post(self, request):
         user = request.user
@@ -86,8 +86,7 @@ class OrderCreateView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class OrderHistoryView(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    
 
     def get(self, request):
         user = request.user
@@ -96,8 +95,7 @@ class OrderHistoryView(APIView):
         return Response(serializer.data)
 
 class CartView(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    
 
     def get(self, request):
         user = request.user

@@ -1,11 +1,14 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-class User(models.Model):
+class User(AbstractUser):
     username = models.CharField(max_length=255, unique=True)
     email = models.EmailField(unique=True)
     password_hash = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    
+    
+    REQUIRED_FIELDS = ['username', 'password_hash']
+    USERNAME_FIELD = 'email'
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
